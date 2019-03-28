@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {SessionStorageService} from 'angular-web-storage';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,10 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'KT';
+
+  currentUser;
+  constructor(private _session:SessionStorageService)
+  {
+    this.currentUser=this._session.get('user');
+  }
 }

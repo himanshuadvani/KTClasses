@@ -10,6 +10,8 @@ import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
 import { AboutusComponent } from './aboutus/aboutus.component';
 import { ContactComponent } from './contact/contact.component';
+import {ReactiveFormsModule} from '@angular/forms';
+import { UserhomeComponent } from './userhome/userhome.component';
 
 @NgModule({
   declarations: [
@@ -20,11 +22,13 @@ import { ContactComponent } from './contact/contact.component';
     LoginComponent,
     SignupComponent,
     AboutusComponent,
-    ContactComponent
+    ContactComponent,
+    UserhomeComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
