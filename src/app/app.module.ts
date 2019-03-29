@@ -13,6 +13,10 @@ import { ContactComponent } from './contact/contact.component';
 import {ReactiveFormsModule} from '@angular/forms';
 import { UserhomeComponent } from './userhome/userhome.component';
 
+import {AngularFireModule} from '@angular/fire';
+import {AngularFireDatabaseModule} from '@angular/fire/database';
+import {environment} from "src/environments/environment";
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -28,7 +32,10 @@ import { UserhomeComponent } from './userhome/userhome.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    AngularFireModule,
+    AngularFireDatabaseModule,
+    AngularFireModule.initializeApp(environment.firebase)
   ],
   providers: [],
   bootstrap: [AppComponent]
