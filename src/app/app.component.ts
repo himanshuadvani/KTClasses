@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import {SessionStorageService} from 'angular-web-storage';
+import { Router } from '@angular/router';
 
 
 
@@ -12,8 +13,18 @@ export class AppComponent {
   title = 'KT';
 
   currentUser;
-  constructor(private _session:SessionStorageService)
+  constructor(private _session:SessionStorageService,private _router:Router)
   {
     this.currentUser=this._session.get('user');
+  }
+
+  logoutUser()
+  {
+   if(confirm("Do you want to Logout?"))
+   {
+    this._session.clear();
+     window.location.href="http://localhost:4200/";
+    
+  }
   }
 }

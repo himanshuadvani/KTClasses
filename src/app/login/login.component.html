@@ -24,7 +24,8 @@
           <button type="submit" class="btn btn-primary" [disabled]="login_form.invalid">Submit</button>
 
           <button  class="btn btn-danger" style="float:right" (click)="Signup()">Signup</button>
-       
+       <br><br>
+       <small *ngIf="incorrectFlag==true" style="color: red"><strong>Incorrect username/password.</strong></small>
         </form>
 
 

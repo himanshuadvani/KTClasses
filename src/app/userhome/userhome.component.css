@@ -1,0 +1,19 @@
+.box-content {
+    display: inline-block;
+    width: 200px;
+    padding: 10px;
+}
+
+.bottom {
+    border-bottom: 1px solid #000;
+}
+
+.right {
+    border-right: 1px solid #000;
+    height: 600px;
+}
+
+.hr
+{
+    color: black;
+}
