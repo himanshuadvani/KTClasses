@@ -1,31 +1,31 @@
 <div class="row">
   <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12" style="margin: auto">
     <div style="border-style:solid;border-radius: 10px;border-width:thin;margin: auto;">
-      <h1 style="margin: 10px">Login</h1>
+      <h1 style="margin: 10px" class="fontstyle">Login</h1>
       
 <br>  
       <div class="col-lg-6 col-md-6 form-group">
        <form [formGroup]="login_form" (ngSubmit)="onSubmit()" >
         
-          <label>Username</label>
-          <input type="text" class="form-control" [class.is-invalid]="login_form.get('uname').touched && login_form.get('uname').invalid" formControlName="uname">
-          <small [class.d-none]="login_form.get('uname').untouched || login_form.get('uname').valid" style="color: red">This field is mandatory</small>
+          <label class="fontstyle">Username</label>
+          <input type="text" class="form-control fontstyle" [class.is-invalid]="login_form.get('uname').touched && login_form.get('uname').invalid" formControlName="uname">
+          <small class="fontstyle" [class.d-none]="login_form.get('uname').untouched || login_form.get('uname').valid" style="color: red">This field is mandatory</small>
           <br>
 
         
-          <label>Password</label>
-          <input type="password" class="form-control" [class.is-invalid]="login_form.get('pword').touched && login_form.get('pword').invalid" formControlName="pword">
-          <small [class.d-none]="login_form.get('pword').untouched || login_form.get('pword').valid" style="color: red">This field is mandatory</small>
+          <label class="fontstyle">Password</label>
+          <input type="password" class="form-control fontstyle" [class.is-invalid]="login_form.get('pword').touched && login_form.get('pword').invalid" formControlName="pword">
+          <small class="fontstyle"  [class.d-none]="login_form.get('pword').untouched || login_form.get('pword').valid" style="color: red">This field is mandatory</small>
           <br>
           
           <br>
 
 
-          <button type="submit" class="btn btn-primary" [disabled]="login_form.invalid">Submit</button>
+          <button type="submit" class="btn btn-primary fontstyle" style="font-size:100%" [disabled]="login_form.invalid">Submit</button>
 
-          <button  class="btn btn-danger" style="float:right" (click)="Signup()">Signup</button>
+          <button  class="btn btn-danger fontstyle" style="float:right;font-size:100%" (click)="Signup()">Signup</button>
        <br><br>
-       <small *ngIf="incorrectFlag==true" style="color: red"><strong>Incorrect username/password.</strong></small>
+       <small *ngIf="incorrectFlag==true" class="fontstyle" style="color: red"><strong>Incorrect username/password.</strong></small>
         </form>
 
 

@@ -16,6 +16,12 @@ import { UserhomeComponent } from './userhome/userhome.component';
 import {AngularFireModule} from '@angular/fire';
 import {AngularFireDatabaseModule} from '@angular/fire/database';
 import {environment} from "src/environments/environment";
+import { ChartsModule } from 'ng2-charts';
+import { PiechartComponent } from './piechart/piechart.component';
+import { AdminComponent } from './admin/admin.component';
+import { NonadminComponent } from './nonadmin/nonadmin.component';
+import { SelectedDirective } from './selected.directive';
+import { FeesComponent } from './fees/fees.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +33,12 @@ import {environment} from "src/environments/environment";
     SignupComponent,
     AboutusComponent,
     ContactComponent,
-    UserhomeComponent
+    UserhomeComponent,
+    PiechartComponent,
+    AdminComponent,
+    NonadminComponent,
+    SelectedDirective,
+    FeesComponent
   ],
   imports: [
     BrowserModule,
@@ -35,7 +46,8 @@ import {environment} from "src/environments/environment";
     ReactiveFormsModule,
     AngularFireModule,
     AngularFireDatabaseModule,
-    AngularFireModule.initializeApp(environment.firebase)
+    AngularFireModule.initializeApp(environment.firebase),
+    ChartsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

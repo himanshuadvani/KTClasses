@@ -1,0 +1,39 @@
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin: auto;">
+    <h1 class="fontstyle">Welcome,{{fullname}} (Admin)</h1>
+    
+    <div style="border-style:solid;border-radius: 10px;border-width:thin;margin: auto;height:530px;overflow-y: scroll">
+ 
+      <div *ngFor="let value of users">
+<br>
+<a (click)="Submit(value)">
+        <div appSelected *ngIf="value.username!=username" style="border-style:solid;border-radius: 10px;border-width:thin;margin-left: 10px;margin-right: 10px">
+       
+
+          <table>
+            <tr>
+              <td class="fontstyle">&nbsp;Fullname: &nbsp;&nbsp;</td>
+              <td class="fontstyle">{{value.fullname}}</td>
+            </tr>
+
+
+            <tr>
+                <td class="fontstyle">&nbsp;Username: &nbsp;&nbsp;</td>
+                <td class="fontstyle">{{value.username}}</td>
+              </tr>
+
+              <tr>
+                  <td class="fontstyle">&nbsp;Email: &nbsp;&nbsp;</td>
+                  <td class="fontstyle">{{value.email}}</td>
+                </tr>
+
+                <tr>
+                    <td class="fontstyle">&nbsp;Contact: &nbsp;&nbsp;</td>
+                    <td class="fontstyle">{{value.contact}}</td>
+                  </tr>
+          </table>
+
+          
+      </div></a>
+      </div>
+  </div>
+</div>

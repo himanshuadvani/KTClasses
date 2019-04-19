@@ -1,72 +1,163 @@
   <div class="row">
   <div class="d-none d-lg-block col-lg-4 col-md-4 right">
-    <h1 style="font-family:Rancho;font-size: 30px">Welcome, {{fullname}}</h1>
+    <div *ngIf="!isAdmin,else otherpart;">
 
-    <table style="width:60%;margin: auto">
-      <br><br>
-      <tr>
-        <td style="font-family:Rancho;font-size: 30px">Username:</td>
-        <td style="font-family:Rancho;font-size: 30px">{{username}}</td>
-        
-      </tr>
-      <tr>
-        <td style="font-family:Rancho;font-size: 30px">Email:</td>
-        <td style="font-family:Rancho;font-size: 30px">{{email}}</td>
-        
-      </tr>
-      <tr>
-        <td style="font-family:Rancho;font-size: 30px">Contact:</td>
-        <td style="font-family:Rancho;font-size: 30px">{{contact}}</td>
-        
-      </tr>
-      
-    </table> 
+<app-nonadmin></app-nonadmin>
+    </div>
+   
     
   </div>
-  <div class="d-lg-none col-xs-12 col-sm-12">
-    <h1 style="font-family:Rancho;">Welcome, {{fullname}}<hr></h1>
-<br>
-<table style="width:60%;margin: auto">
-  <br><br>
-  <tr>
-    <td style="font-family:Rancho;font-size: 30px">Username:</td>
-    <td style="font-family:Rancho;font-size: 30px">{{username}}</td>
-    
-  </tr>
-  <tr>
-    <td style="font-family:Rancho;font-size: 30px">Email:</td>
-    <td style="font-family:Rancho;font-size: 30px">{{email}}</td>
-    
-  </tr>
-  <tr>
-    <td style="font-family:Rancho;font-size: 30px">Contact:</td>
-    <td style="font-family:Rancho;font-size: 30px">{{contact}}</td>
-    
-  </tr>
+
+
+
   
-</table> 
+  <div class="d-lg-none col-xs-12 col-sm-12">
 
+      <div *ngIf="!isAdmin,else otherpart;">
+
+          <app-nonadmin></app-nonadmin>
+              </div>
   </div>
 
 
 
 
   <div class="d-none d-lg-block col-lg-4 col-md-4 right">
-    <h1 style="font-family:Rancho;font-size: 30px">Fees</h1>
+    <h1 class="fontstyle">Fees</h1>
+    <br>
+    <h3 class="fontstyle">Total Fees: {{fee}}</h3>
+    <h3 class="fontstyle">Amount Paid: </h3>
+    <h3 class="fontstyle">Outstanding Balance: </h3>
+    <br><br><br><br><br>
+    <div *ngIf="isAdmin">
+        <h1 class="fontstyle">Batches</h1>
+      <br>
+      <div style="border-style:solid;border-radius: 10px;border-width:thin;margin: auto;height:130px;overflow-y: scroll">
+        </div>
+      <br>
+
+      <button class="btn btn-primary btn-lg fontstyle" data-toggle="modal" data-target="#newbatch">Add Batch</button>
+
+    </div>
+
   </div>
   <div class="d-lg-none col-xs-12 col-sm-12">
-    <h1 style="font-family:Rancho;">Fees<hr></h1>
+    <h1 class="fontstyle">Fees</h1>
+  
+    <h3 class="fontstyle">Total Fees: {{fee}}</h3>
+    <h3 class="fontstyle">Amount Paid: </h3>
+    <h3 class="fontstyle">Outstanding Balance: </h3>
+    <hr>
   </div>
 
 
 
   <div class="d-none d-lg-block col-lg-4 col-md-4 right">
-    <h1 style="font-family:Rancho;font-size: 30px">Attendance</h1>
+    <h1 class="fontstyle">Attendance</h1>
+    <app-piechart></app-piechart>
+    <br><br><br>
+    <h3 class="fontstyle">Total Number of Days: {{days}}</h3>
+    <h3 class="fontstyle">Present (Days): {{days}}</h3>
+    <h3 class="fontstyle">Absent(Days): {{days}}</h3>
+    
+
   </div>
   <div class="d-lg-none col-xs-12 col-sm-12">
-    <h1 style="font-family:Rancho;">Attendance<hr></h1>
+    <h1 class="fontstyle">Attendance<hr></h1>
+<app-piechart></app-piechart>
+<br>
+    <h3 class="fontstyle">Total Number of Days: {{days}}</h3>
+    <h3 class="fontstyle">Present (Days): {{days}}</h3>
+    <h3 class="fontstyle">Absent(Days): {{days}}</h3>
   </div>
 
 
 
 </div>
+
+<ng-template #otherpart>
+
+<app-admin (sendUser)="displayData($event)"></app-admin>
+</ng-template>
+
+  <!-- The Modal for editing user -->
+  <div class="modal" id="myModal">
+      <div class="modal-dialog">
+        <div class="modal-content">
+        
+          <!-- Modal Header -->
+          <div class="modal-header">
+            <h4 class="modal-title fontstyle">Edit</h4>
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+          </div>
+          
+          <!-- Modal body -->
+          <div class="modal-body">
+            
+              <label class="fontstyle">Username</label>
+              <input type="text" class="form-control fontstyle" >
+              
+              <br>
+
+
+            
+          </div>
+          
+          <!-- Modal footer -->
+          <div class="modal-footer">
+              <button type="button" class="btn btn-primary btn-lg" data-dismiss="modal">Save</button>
+            <button type="button" class="btn btn-danger btn-lg" data-dismiss="modal">Close</button>
+          </div>
+          
+        </div>
+      </div></div>
+
+
+
+
+
+      
+  <!-- The Modal for adding new batch -->
+  <div class="modal" id="newbatch" #batch>
+      <div class="modal-dialog">
+        <div class="modal-content">
+        
+          <!-- Modal Header -->
+          <div class="modal-header">
+            <h4 class="modal-title fontstyle">New Batch</h4>
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+          </div>
+          
+          <!-- Modal body -->
+          
+          <div class="modal-body">
+            
+              <form [formGroup]="batch_Form" (ngSubmit)="addBatch()" >
+                  <br>
+                  <small class="fontstyle">Fields marked with * are mandatory</small><br><br>
+                  <label class="fontstyle">Batch Name<span style="color: red">*</span></label>
+                  <input type="text" class="form-control fontstyle" [class.is-invalid]="batch_Form.get('batchname').touched && batch_Form.get('batchname').invalid" formControlName="batchname">
+                  
+                  <br>
+                  <label class="fontstyle">Batch Fees<span style="color: red">*</span></label>
+                  <input type="text" class="form-control fontstyle" [class.is-invalid]="batch_Form.get('batchfees').touched && batch_Form.get('batchfees').invalid" formControlName="batchfees">
+                
+                  <br>
+                  <button type="submit" class="btn btn-primary btn-lg">Add Batch</button>
+                
+                </form>
+          
+               
+               
+
+            
+          </div>
+          
+          <!-- Modal footer -->
+          <div class="modal-footer">
+              
+            <button type="button" class="btn btn-danger btn-lg" data-dismiss="modal">Close</button>
+          </div>
+       
+        </div>
+      </div></div>

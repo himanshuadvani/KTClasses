@@ -6,11 +6,15 @@ import { AngularFireDatabase, AngularFireList } from '@angular/fire/database';
 })
 export class ClassdataService {
 
+  
+  users:AngularFireList<any>;
+  batches:AngularFireList<any>;
+
   constructor(private firebase:AngularFireDatabase) { 
     this.users=this.firebase.list('/Data/Users');
+    this.batches=this.firebase.list('/Data/Batches');
   }
 
-  users:AngularFireList<any>;
 
   insertUser(temp)
   {
@@ -22,6 +26,18 @@ export class ClassdataService {
         email:temp.email,
         contact:temp.cont,
         password:temp.pword
+      }
+    )
+
+  }
+
+  insertBatch(temp)
+  {
+    
+    this.batches.push(
+      {
+        batchname:temp.batchname,
+        fees:temp.batchfees
       }
     )
 
