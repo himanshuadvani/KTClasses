@@ -13,23 +13,30 @@ import { $ } from 'protractor';
 })
 export class UserhomeComponent implements OnInit {
   
-fee="";
+totalAmount=0;
+paidAmount=0;
+balAmount=0;
 currentUser="";
 fullname="";
 username="";
 email="";
 contact="";
-user="";
+clickedUser="";
 isAdmin=false;
 users=[];
-
-hide=false;
+batches=[];
 
 
 @ViewChild("newbatch") newbatch:ElementRef;
 
-  constructor(private _serv:SessionStorageService,private _data:ClassdataService,private form:FormBuilder,private router:Router) {
 
+ngOnInit() {
+ 
+}
+
+  constructor(private _serv:SessionStorageService,private _data:ClassdataService,private form:FormBuilder,private router:Router) {
+    
+    
     this.currentUser=this._serv.get('user');
     this.fullname=this._serv.get('user').fullname;
 
@@ -48,6 +55,16 @@ hide=false;
         });
       });
 
+      this._data.getBatches().subscribe(
+        list => {
+          this.batches = list.map(item => {
+            return {
+              $key: item.key,
+              ...item.payload.val()
+            };
+          });
+        });
+
       this.username=this._serv.get('user').username;
       this.email=this._serv.get('user').email;
       this.contact=this._serv.get('user').contact;
@@ -63,8 +80,6 @@ hide=false;
     }
   )
 
-  ngOnInit() {
-  }
 
   editDetails()
   {
@@ -73,15 +88,42 @@ hide=false;
 
   displayData($event)
   {
-    this.fee=$event;
+    this.clickedUser=$event;
+    for(var i=0;i<this.users.length;i++)
+    {
+      if(this.users[i].username==this.clickedUser)
+      {
+        this.totalAmount=this.users[i].totalAmount;
+        this.paidAmount=this.users[i].paidAmount;
+        this.balAmount=this.totalAmount-this.paidAmount;
+      }
+    }
+
   }
 
   addBatch()
   {
     this._data.insertBatch(this.batch_Form.value);
-    alert("Batch added successfully...");
-    this.newbatch.nativeElement.hide();
+   alert("Batch added.");
+   this.batch_Form.reset();
+  }
+
+  logoutUser()
+  {
+   if(confirm("Do you want to Logout?"))
+   {
+    this._serv.clear();
+     window.location.href="/";
     
+    }
+  }
+
+  deleteBatch($key,batchname)
+  {
+    if(confirm("Do you want to delete this batch? "+batchname))
+    {
+      this._data.deleteBatch($key);
+    }
   }
 
 }

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {FormGroup,FormControl,Validators, FormBuilder} from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { ClassdataService } from '../classdata.service';
 import {SessionStorageService} from 'angular-web-storage';
 
@@ -14,7 +14,7 @@ export class LoginComponent implements OnInit {
 
   incorrectFlag:boolean=false;
   users=[];
-  constructor(private _form:FormBuilder,private _router:Router,private _serv:ClassdataService,private _storage:SessionStorageService) {
+  constructor(private _form:FormBuilder,private _router:Router,private _route:ActivatedRoute,private _serv:ClassdataService,private _storage:SessionStorageService) {
 
     this.incorrectFlag=false;
     this._serv.getUsers().subscribe(
@@ -54,7 +54,8 @@ this._router.navigate(['/signup']);
         if(this.users[i].password==this.login_form.value.pword)
         {
           this._storage.set('user',this.users[i]);
-          window.location.href="http://localhost:4200/userhome";
+          window.location.href="/userhome";
+         
           return;
          
         }

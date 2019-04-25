@@ -10,7 +10,7 @@ import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
 import { AboutusComponent } from './aboutus/aboutus.component';
 import { ContactComponent } from './contact/contact.component';
-import {ReactiveFormsModule} from '@angular/forms';
+import {ReactiveFormsModule, FormsModule} from '@angular/forms';
 import { UserhomeComponent } from './userhome/userhome.component';
 
 import {AngularFireModule} from '@angular/fire';
@@ -21,7 +21,7 @@ import { PiechartComponent } from './piechart/piechart.component';
 import { AdminComponent } from './admin/admin.component';
 import { NonadminComponent } from './nonadmin/nonadmin.component';
 import { SelectedDirective } from './selected.directive';
-import { FeesComponent } from './fees/fees.component';
+
 
 @NgModule({
   declarations: [
@@ -38,12 +38,13 @@ import { FeesComponent } from './fees/fees.component';
     AdminComponent,
     NonadminComponent,
     SelectedDirective,
-    FeesComponent
+
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
+    FormsModule,
     AngularFireModule,
     AngularFireDatabaseModule,
     AngularFireModule.initializeApp(environment.firebase),

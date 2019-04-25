@@ -1,14 +1,13 @@
 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin: auto;">
     <h1 class="fontstyle">Welcome,{{fullname}} (Admin)</h1>
     
-    <div style="border-style:solid;border-radius: 10px;border-width:thin;margin: auto;height:530px;overflow-y: scroll">
- 
+    <div style="border-style:solid;border-radius: 10px;border-width:thin;margin: auto;height:530px;overflow-y: auto">
+        
       <div *ngFor="let value of users">
-<br>
-<a (click)="Submit(value)">
-        <div appSelected *ngIf="value.username!=username" style="border-style:solid;border-radius: 10px;border-width:thin;margin-left: 10px;margin-right: 10px">
-       
 
+<a (click)="Submit(value)">
+    <br>
+        <div appSelected [class.d-none]="value.username==username" style="border-style:solid;border-radius: 10px;border-width:thin;margin-left: 10px;margin-right: 10px">
           <table>
             <tr>
               <td class="fontstyle">&nbsp;Fullname: &nbsp;&nbsp;</td>
@@ -30,10 +29,108 @@
                     <td class="fontstyle">&nbsp;Contact: &nbsp;&nbsp;</td>
                     <td class="fontstyle">{{value.contact}}</td>
                   </tr>
-          </table>
 
-          
+                  <tr *ngIf="value.batches">
+                    <td class="fontstyle">&nbsp;Batches: &nbsp;&nbsp;</td>
+                    <td class="fontstyle">{{value.batches}}</td>
+                  </tr>
+  
+                  <tr>
+                    <td>&nbsp;<button class="btn btn-primary btn-lg fontstyle" data-toggle="modal" data-target="#myModal" (click)="populateForm(value.$key)">Edit</button></td>
+                  </tr>
+                 
+          </table>
+<br>
       </div></a>
       </div>
   </div>
 </div>
+
+
+ <!-- The Modal for editing user -->
+ <div class="modal" id="myModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+      
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title fontstyle">Edit</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        
+        <!-- Modal body -->
+        <div class="modal-body">
+          
+
+          <form [formGroup]="update_Form" (ngSubmit)="onEditUser()" >
+            
+            <br>
+            <input type="text" class="form-control fontstyle d-none" [class.is-invalid]="update_Form.get('$key').touched && update_Form.get('$key').invalid" formControlName="$key">
+            
+            
+            <br>
+            <small class="fontstyle">Fields marked with <span style="color: red">*</span> are mandatory</small><br><br>
+            <label class="fontstyle">Username<span style="color: red">*</span></label>
+            <input type="text" class="form-control fontstyle" disabled [class.is-invalid]="update_Form.get('uname').touched && update_Form.get('uname').invalid" formControlName="uname">
+            
+            <br>
+            <label class="fontstyle">Fullname<span style="color: red">*</span></label>
+            <input type="text" class="form-control fontstyle"  [class.is-invalid]="update_Form.get('fname').touched && update_Form.get('fname').invalid" formControlName="fname">
+          
+            <br>
+            <label class="fontstyle">Email<span style="color: red">*</span></label>
+            <input type="text" class="form-control fontstyle"[class.is-invalid]="update_Form.get('email').touched && update_Form.get('email').invalid" formControlName="email">
+            <small class="fontstyle"  [class.d-none]="update_Form.get('email').untouched || update_Form.get('email').valid" style="color: red">Enter email in correct format.</small>
+            <br>
+            <label class="fontstyle">Contact<span style="color: red">*</span></label>
+            <input type="text" class="form-control fontstyle" [class.is-invalid]="update_Form.get('cont').touched && update_Form.get('cont').invalid" pattern="^([0-9])*" formControlName="cont">
+            <small class="fontstyle"  [class.d-none]="update_Form.get('cont').untouched || update_Form.get('cont').valid" style="color: red">Please enter 10 digit number without alphabets</small>
+            <br>
+            <br>
+            
+            <div>
+              <small style="color:red">If any, please select the batch from the dropdown list below.</small><br>
+                <select formControlName="batch">
+                    <option [value]="" selected></option>
+                    <option *ngFor="let temp of batches" [value]="temp.batchname">{{temp.batchname}}</option>
+                  </select> 
+            </div>
+            <br>
+            
+            <br>
+            <div>
+                <label  class="fontstyle">Batches</label>
+                <div style="border-style:solid;border-radius: 10px;border-width:thin;margin: auto;height:200px;overflow-x: hidden;overflow-y: auto">
+                  <table class="table" style="overflow-y: auto;">
+                  <tr *ngFor="let ele of userbatch,index as i">
+               
+                    <td class="fontstyle">{{i+1}}. {{ele}}</td>
+                    <td class="fontstyle"><button class="btn btn-danger" (click)="deleteUserBatch(ele)">Delete</button></td>
+                   
+                  </tr>
+                  </table>
+                  </div>
+                </div>
+                
+                <br>
+            
+                <br>
+
+            <button type="submit" class="btn btn-primary btn-lg fontstyle" style="float:right" >Update</button>
+         
+        
+         
+          </form>
+
+
+          
+        </div>
+        
+        <!-- Modal footer -->
+        <div class="modal-footer">
+           
+          <button type="button" class="btn btn-danger btn-lg" data-dismiss="modal">Close</button>
+        </div>
+        
+      </div>
+    </div></div>

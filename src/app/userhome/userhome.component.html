@@ -1,7 +1,15 @@
-  <div class="row">
+<div class="adjustheight">
+      <div class="row">
+     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <button class="btn btn-danger btn-lg fontstyle" style="float: right" (click)="logoutUser()" > Logout</button>
+      </div>
+      </div>
+        
+      </div>
+      <div class="row">
   <div class="d-none d-lg-block col-lg-4 col-md-4 right">
     <div *ngIf="!isAdmin,else otherpart;">
-
+<br>
 <app-nonadmin></app-nonadmin>
     </div>
    
@@ -25,18 +33,85 @@
   <div class="d-none d-lg-block col-lg-4 col-md-4 right">
     <h1 class="fontstyle">Fees</h1>
     <br>
-    <h3 class="fontstyle">Total Fees: {{fee}}</h3>
-    <h3 class="fontstyle">Amount Paid: </h3>
-    <h3 class="fontstyle">Outstanding Balance: </h3>
+    <h3 class="fontstyle">Total Fees: {{totalAmount}}</h3>
+    <h3 class="fontstyle">Amount Paid: {{paidAmount}}</h3>
+    <h3 class="fontstyle">Outstanding Balance: {{balAmount}}</h3>
     <br><br><br><br><br>
     <div *ngIf="isAdmin">
         <h1 class="fontstyle">Batches</h1>
       <br>
-      <div style="border-style:solid;border-radius: 10px;border-width:thin;margin: auto;height:130px;overflow-y: scroll">
+      <div style="border-style:solid;border-radius: 10px;border-width:thin;margin: auto;height:239px;overflow-x: hidden">
+<br>
+       
+            <form [formGroup]="batch_Form" (ngSubmit)="addBatch()" >
+                <div class="row">
+          <div class="col-lg-9 col-md-9">
+
+            
+             <div style="display:flex">
+              &nbsp;
+             
+              <label class="fontstyle">Name<span style="color: red">*</span></label>
+              <input type="text" class="form-control fontstyle" [class.is-invalid]="batch_Form.get('batchname').touched && batch_Form.get('batchname').invalid" formControlName="batchname">
+              
+              &nbsp;
+              <label class="fontstyle">Fees<span style="color: red">*</span></label>
+              <input type="text" class="form-control fontstyle" [class.is-invalid]="batch_Form.get('batchfees').touched && batch_Form.get('batchfees').invalid" formControlName="batchfees">
+            
+              
+            </div>
+          
+      
+
+          </div>
+          <div class="col-lg-3 col-md-3">
+            <button type="submit" class="btn btn-primary btn-lg fontstyle">Add Batch</button>
+          </div>
+        </div>
+        </form>
+      <br>
+    
+
+          <div class="col-lg-12 col-md-12">
+
+            <table class="table" style="overflow-y: auto;">
+            
+              <thead>
+                <tr>
+              <th>Batch</th>
+              <th>Fees</th>
+                </tr>
+                </thead>
+                <tr appSelected *ngFor="let value of batches">
+                  <td>
+                    {{value.batchname}}
+                  </td>
+                  <td>
+                      {{value.fees}}
+                  </td>
+
+                  <td>
+                    <button class="btn btn-danger" (click)="deleteBatch(value.$key,value.batchname)">Delete</button>
+                </td>
+                </tr>
+                <tbody>
+                  
+                </tbody>
+
+
+            </table>
+          
+
+          </div>
+
+          
+   
+
+
         </div>
       <br>
 
-      <button class="btn btn-primary btn-lg fontstyle" data-toggle="modal" data-target="#newbatch">Add Batch</button>
+      
 
     </div>
 
@@ -44,15 +119,15 @@
   <div class="d-lg-none col-xs-12 col-sm-12">
     <h1 class="fontstyle">Fees</h1>
   
-    <h3 class="fontstyle">Total Fees: {{fee}}</h3>
-    <h3 class="fontstyle">Amount Paid: </h3>
-    <h3 class="fontstyle">Outstanding Balance: </h3>
+    <h3 class="fontstyle">Total Fees: {{totalAmount}}</h3>
+    <h3 class="fontstyle">Amount Paid: {{totalAmount}}</h3>
+    <h3 class="fontstyle">Outstanding Balance: {{totalAmount}}</h3>
     <hr>
   </div>
 
 
 
-  <div class="d-none d-lg-block col-lg-4 col-md-4 right">
+  <div class="d-none d-lg-block col-lg-4 col-md-4">
     <h1 class="fontstyle">Attendance</h1>
     <app-piechart></app-piechart>
     <br><br><br>
@@ -80,84 +155,10 @@
 <app-admin (sendUser)="displayData($event)"></app-admin>
 </ng-template>
 
-  <!-- The Modal for editing user -->
-  <div class="modal" id="myModal">
-      <div class="modal-dialog">
-        <div class="modal-content">
-        
-          <!-- Modal Header -->
-          <div class="modal-header">
-            <h4 class="modal-title fontstyle">Edit</h4>
-            <button type="button" class="close" data-dismiss="modal">&times;</button>
-          </div>
-          
-          <!-- Modal body -->
-          <div class="modal-body">
-            
-              <label class="fontstyle">Username</label>
-              <input type="text" class="form-control fontstyle" >
-              
-              <br>
-
-
-            
-          </div>
-          
-          <!-- Modal footer -->
-          <div class="modal-footer">
-              <button type="button" class="btn btn-primary btn-lg" data-dismiss="modal">Save</button>
-            <button type="button" class="btn btn-danger btn-lg" data-dismiss="modal">Close</button>
-          </div>
-          
-        </div>
-      </div></div>
+ 
 
 
 
 
 
-      
-  <!-- The Modal for adding new batch -->
-  <div class="modal" id="newbatch" #batch>
-      <div class="modal-dialog">
-        <div class="modal-content">
-        
-          <!-- Modal Header -->
-          <div class="modal-header">
-            <h4 class="modal-title fontstyle">New Batch</h4>
-            <button type="button" class="close" data-dismiss="modal">&times;</button>
-          </div>
-          
-          <!-- Modal body -->
-          
-          <div class="modal-body">
-            
-              <form [formGroup]="batch_Form" (ngSubmit)="addBatch()" >
-                  <br>
-                  <small class="fontstyle">Fields marked with * are mandatory</small><br><br>
-                  <label class="fontstyle">Batch Name<span style="color: red">*</span></label>
-                  <input type="text" class="form-control fontstyle" [class.is-invalid]="batch_Form.get('batchname').touched && batch_Form.get('batchname').invalid" formControlName="batchname">
-                  
-                  <br>
-                  <label class="fontstyle">Batch Fees<span style="color: red">*</span></label>
-                  <input type="text" class="form-control fontstyle" [class.is-invalid]="batch_Form.get('batchfees').touched && batch_Form.get('batchfees').invalid" formControlName="batchfees">
-                
-                  <br>
-                  <button type="submit" class="btn btn-primary btn-lg">Add Batch</button>
-                
-                </form>
-          
-               
-               
-
-            
-          </div>
-          
-          <!-- Modal footer -->
-          <div class="modal-footer">
-              
-            <button type="button" class="btn btn-danger btn-lg" data-dismiss="modal">Close</button>
-          </div>
-       
-        </div>
-      </div></div>
+     

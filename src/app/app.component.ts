@@ -18,13 +18,5 @@ export class AppComponent {
     this.currentUser=this._session.get('user');
   }
 
-  logoutUser()
-  {
-   if(confirm("Do you want to Logout?"))
-   {
-    this._session.clear();
-     window.location.href="http://localhost:4200/";
-    
-  }
-  }
+  
 }
