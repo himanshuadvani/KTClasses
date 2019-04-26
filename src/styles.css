@@ -2,6 +2,7 @@
 @import url('https://fonts.googleapis.com/css?family=BookmanOldStyle');
 .fontstyle{
     font-family: Bookman Old Style;
+    overflow-wrap: break-word;
     /*font-family:Rancho;*/
 
 }

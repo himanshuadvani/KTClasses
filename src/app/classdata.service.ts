@@ -119,5 +119,25 @@ export class ClassdataService {
     this.batches.remove(batchKey);
   }
 
+  deleteUserBatch($key,temp,totalAmount,paidAmount)
+  {
+    if(temp.length==0)
+    {
+      temp=null;
+      totalAmount=0;
+      paidAmount=0;
+      
+    }
+    
+      this.users.update($key,
+        {
+          totalAmount:totalAmount,
+          paidAmount:paidAmount,     
+          batches:temp
+        });
+    
+ 
+  
+  }
 
 }

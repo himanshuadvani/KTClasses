@@ -1,4 +1,4 @@
-<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin: auto;">
+<div class="d-none d-lg-block col-lg-12 col-md-12" style="margin: auto;">
     <h1 class="fontstyle">Welcome,{{fullname}} (Admin)</h1>
     
     <div style="border-style:solid;border-radius: 10px;border-width:thin;margin: auto;height:530px;overflow-y: auto">
@@ -7,8 +7,8 @@
 
 <a (click)="Submit(value)">
     <br>
-        <div appSelected [class.d-none]="value.username==username" style="border-style:solid;border-radius: 10px;border-width:thin;margin-left: 10px;margin-right: 10px">
-          <table>
+        <div appSelected [class.d-none]="value.username==username" style="border-style:solid;border-radius: 10px;border-width:thin;margin-left: 10px;margin-right: 10px;">
+          <table style="padding-right:30px">
             <tr>
               <td class="fontstyle">&nbsp;Fullname: &nbsp;&nbsp;</td>
               <td class="fontstyle">{{value.fullname}}</td>
@@ -43,12 +43,55 @@
 <br>
       </div></a>
       </div>
+      <br><br>
   </div>
 </div>
 
 
+
+
+<div class="d-lg-none col-sm-12 col-xs-12" style="margin: auto;">
+    <h1 class="fontstyle">Welcome,{{fullname}} (Admin)</h1>
+    
+    <div style="border-style:solid;border-radius: 10px;border-width:thin;margin: auto;height:530px;overflow-y: auto;">
+        
+      <div *ngFor="let value of users">
+
+<a (click)="Submit(value)">
+    <br>
+        <div appSelected [class.d-none]="value.username==username" style="border-style:solid;border-radius: 10px;border-width:thin;margin-left: 10px;margin-right: 10px;">
+        
+              <p class="fontstyle">&nbsp;Fullname:<br>&nbsp;<strong>{{value.fullname}}</strong></p>
+              <p class="fontstyle">&nbsp;Username:<br>&nbsp;<strong>{{value.username}}</strong></p>
+              <p class="fontstyle">&nbsp;Email:<br>&nbsp;<strong>{{value.email}}</strong></p>
+              <p class="fontstyle">&nbsp;Contact:<br>&nbsp;<strong>{{value.contact}}</strong></p>
+          
+                  <div *ngIf="value.batches">
+                    <p class="fontstyle">&nbsp;Batches: <br>&nbsp;<strong>{{value.batches}}</strong></p>
+                  </div>
+  
+    
+                    &nbsp;<button class="btn btn-primary btn-lg fontstyle" data-toggle="modal" data-target="#myModal" (click)="populateForm(value.$key)">Edit</button>
+                    <br>
+                  
+       
+<br>
+      </div></a>
+      </div>
+      <br><br>
+  </div>
+</div>
+
+
+
+
+
+
+
+
  <!-- The Modal for editing user -->
- <div class="modal" id="myModal">
+ <div class="modal col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin:auto" id="myModal">
+
     <div class="modal-dialog">
       <div class="modal-content">
       
@@ -105,7 +148,7 @@
                   <tr *ngFor="let ele of userbatch,index as i">
                
                     <td class="fontstyle">{{i+1}}. {{ele}}</td>
-                    <td class="fontstyle"><button class="btn btn-danger" (click)="deleteUserBatch(ele)">Delete</button></td>
+                    <td class="fontstyle"><button class="btn btn-danger" (click)="deleteUserBatch(update_Form.get('$key').value,ele)">Delete</button></td>
                    
                   </tr>
                   </table>
@@ -133,4 +176,6 @@
         </div>
         
       </div>
-    </div></div>
+    </div>
+
+  </div>

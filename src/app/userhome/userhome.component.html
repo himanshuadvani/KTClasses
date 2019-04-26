@@ -31,7 +31,9 @@
 
 
   <div class="d-none d-lg-block col-lg-4 col-md-4 right">
-    <h1 class="fontstyle">Fees</h1>
+    <h1 class="fontstyle">Fees</h1> &nbsp;&nbsp;&nbsp;&nbsp;<a style="float: right" data-toggle="modal" data-target="#myModal">
+        <span class="glyphicon glyphicon-edit"></span>Edit
+      </a>
     <br>
     <h3 class="fontstyle">Total Fees: {{totalAmount}}</h3>
     <h3 class="fontstyle">Amount Paid: {{paidAmount}}</h3>
@@ -116,12 +118,91 @@
     </div>
 
   </div>
+  <br>
   <div class="d-lg-none col-xs-12 col-sm-12">
-    <h1 class="fontstyle">Fees</h1>
+    <h1 class="fontstyle">Fees</h1> &nbsp;&nbsp;&nbsp;&nbsp;<a style="float: right" data-toggle="modal" data-target="#myModal">
+        <span class="glyphicon glyphicon-edit"></span>Edit
+      </a>
   
     <h3 class="fontstyle">Total Fees: {{totalAmount}}</h3>
-    <h3 class="fontstyle">Amount Paid: {{totalAmount}}</h3>
-    <h3 class="fontstyle">Outstanding Balance: {{totalAmount}}</h3>
+    <h3 class="fontstyle">Amount Paid: {{paidAmount}}</h3>
+    <h3 class="fontstyle">Outstanding Balance: {{balAmount}}</h3>
+    <br><br><br><br><br>
+    <div *ngIf="isAdmin">
+        <h1 class="fontstyle">Batches</h1>
+      <br>
+      <div style="border-style:solid;border-radius: 10px;border-width:thin;margin: auto;height:300px;overflow-x: hidden">
+<br>
+       
+            <form [formGroup]="batch_Form" (ngSubmit)="addBatch()" >
+              
+          <div class="col-xs-9 col-sm-9" style="margin:auto">
+
+            
+         
+         
+             
+              <label class="fontstyle">Name<span style="color: red">*</span></label>
+              <input type="text" class="form-control fontstyle" [class.is-invalid]="batch_Form.get('batchname').touched && batch_Form.get('batchname').invalid" formControlName="batchname">
+              
+            <br>
+              <label class="fontstyle">Fees<span style="color: red">*</span></label>
+              <input type="text" class="form-control fontstyle" [class.is-invalid]="batch_Form.get('batchfees').touched && batch_Form.get('batchfees').invalid" formControlName="batchfees">
+            
+       
+          </div>
+      
+      <br>
+          <div class="col-xs-12 col-sm-12 ">
+            <button type="submit" class="btn btn-primary btn-lg fontstyle">Add Batch</button>
+          </div>
+        
+        </form>
+      <br>
+    
+
+          <div class="col-lg-12 col-md-12">
+
+            <table class="table" style="overflow-y: auto;">
+            
+              <thead>
+                <tr>
+              <th>Batch</th>
+              <th>Fees</th>
+                </tr>
+                </thead>
+                <tr appSelected *ngFor="let value of batches">
+                  <td>
+                    {{value.batchname}}
+                  </td>
+                  <td>
+                      {{value.fees}}
+                  </td>
+
+                  <td>
+                    <button class="btn btn-danger" (click)="deleteBatch(value.$key,value.batchname)">Delete</button>
+                </td>
+                </tr>
+                <tbody>
+                  
+                </tbody>
+
+
+            </table>
+          
+
+          </div>
+
+          
+   
+
+
+        </div>
+      <br>
+
+      
+
+    </div>
     <hr>
   </div>
 
@@ -153,6 +234,7 @@
 <ng-template #otherpart>
 
 <app-admin (sendUser)="displayData($event)"></app-admin>
+<br><br><br>
 </ng-template>
 
  

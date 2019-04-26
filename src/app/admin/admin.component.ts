@@ -127,9 +127,53 @@ export class AdminComponent implements OnInit {
   }
 
 
-  deleteUserBatch(ele)
+  deleteUserBatch($key,ele)
   {
-    alert(ele);
+    var amount=0;
+    var totalAmount=0;
+    var paidAmount=0;
+    var temp=[];
+
+    
+    for(var i=0;i<this.batches.length;i++)
+    {
+      if(this.batches[i].batchname==ele)
+      {
+        amount=this.batches[i].fees;
+      }
+    }
+
+
+    for(var i=0;i<this.users.length;i++)
+    {
+      if(this.users[i].$key==$key)
+      { 
+
+        temp=this.users[i].batches.split(',');
+        totalAmount=this.users[i].totalAmount;
+        paidAmount=this.users[i].paidAmount;
+        
+      }
+    }
+
+
+
+    for(var i=0;i<temp.length;i++)
+    {
+      if(ele==temp[i])
+      {
+        temp.splice(i,1);
+        var result=temp.toString();
+        if(paidAmount>=amount)
+        {
+          paidAmount-=amount
+        }
+        this._serv.deleteUserBatch($key,result,totalAmount-amount,paidAmount);
+      }
+    }
+
+  
+
   }
 
 }
