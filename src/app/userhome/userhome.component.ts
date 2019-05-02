@@ -35,15 +35,7 @@ ngOnInit() {
 }
 
   constructor(private _serv:SessionStorageService,private _data:ClassdataService,private form:FormBuilder,private router:Router) {
-    
-    
-    this.currentUser=this._serv.get('user');
-    this.fullname=this._serv.get('user').fullname;
-
-    if(this._serv.get('user').username=="kajoltilokchandani")
-    {
-      this.isAdmin=true;
-    }
+ 
 
     this._data.getUsers().subscribe(
       list => {
@@ -65,9 +57,26 @@ ngOnInit() {
           });
         });
 
+
+    if(this._serv.get('user').username=="kajoltilokchandani")
+    {
+      this.isAdmin=true;
+    }
+               
+    
+    this.currentUser=this._serv.get('user');
+    this.fullname=this._serv.get('user').fullname;
+
       this.username=this._serv.get('user').username;
       this.email=this._serv.get('user').email;
       this.contact=this._serv.get('user').contact;
+
+      if(this.isAdmin==false)
+      {
+        this.totalAmount=this._serv.get('user').totalAmount;
+        this.paidAmount=this._serv.get('user').paidAmount;
+        this.balAmount=this.totalAmount-this.paidAmount;
+      }
 
 
   }
@@ -88,6 +97,7 @@ ngOnInit() {
 
   displayData($event)
   {
+    
     this.clickedUser=$event;
     for(var i=0;i<this.users.length;i++)
     {
@@ -100,6 +110,7 @@ ngOnInit() {
     }
 
   }
+
 
   addBatch()
   {

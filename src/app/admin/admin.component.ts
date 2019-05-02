@@ -86,13 +86,18 @@ export class AdminComponent implements OnInit {
       this.update_Form.controls['fname'].setValue(this.users[i].fullname);
       this.update_Form.controls['email'].setValue(this.users[i].email);
       this.update_Form.controls['cont'].setValue(this.users[i].contact);
-     this.userbatch=this.users[i].batches.split(',');
+      if(this.users[i].batches)
+      {
+        this.userbatch=this.users[i].batches.split(',');
+      }
+      else{
+        this.userbatch=[];
+      }
+    
      break;
      
     }
-    else{
-      this.userbatch=[];
-    }
+    
     }
    }
 
@@ -123,6 +128,7 @@ export class AdminComponent implements OnInit {
     }
     this._serv.editUser(this.update_Form.value,this.userbatch,this.totalAmount);
     alert("Data Updated Successfully...");
+  
     window.location.href="/userhome";
   }
 
